@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Piccadilly towards Market Street",
+        "coords": [-2.234986, 53.480616],
+        "popup": {
+            "description": "Placeholder Description",
+            "image": "markers/picc_twd_marketst/past.jpg"
+        },
+        "media": {
+            "imagePast": "markers/picc_twd_marketst/past.jpg",
+            "article": "markers/picc_twd_marketst/article.html"
+        }
+    }
+]
