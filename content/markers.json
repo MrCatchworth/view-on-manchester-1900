@@ -3,12 +3,32 @@
         "name": "Piccadilly towards Market Street",
         "coords": [-2.234986, 53.480616],
         "popup": {
-            "description": "Placeholder Description",
+            "description": "Looking down the side of Piccadilly from London Road end, to Market Street",
             "image": "markers/picc_twd_marketst/past.jpg"
         },
         "media": {
-            "imagePast": "markers/picc_twd_marketst/past.jpg",
-            "article": "markers/picc_twd_marketst/article.html"
+            "type": "image",
+            "src": "markers/picc_twd_marketst/past.jpg"
+        },
+        "article": {
+            "type": "html",
+            "src": "markers/picc_twd_marketst/article.html"
+        }
+    },
+    {
+        "name": "Manchester Street Scene",
+        "coords": [-2.240063, 53.482234],
+        "popup": {
+            "description": "Video showing a busy street scene in Manchester",
+            "image": "http://img.youtube.com/vi/z0QkJNqYpFM/hqdefault.jpg"
+        },
+        "media": {
+            "type": "youtube",
+            "videoid": "z0QkJNqYpFM"
+        },
+        "article": {
+            "type": "html",
+            "src": "markers/picc_twd_marketst/article.html"
         }
     }
 ]

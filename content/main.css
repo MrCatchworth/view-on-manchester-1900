@@ -30,25 +30,32 @@
 
 .article {
     height:100%;
-    width:100%;
-    margin:0;
-    padding-left: 30px;
+    padding:30px;
     position:absolute;
-    top:80px;
+    top:0;
     left:0;
+    margin:0;
 }
 .articlecontainer {
+    height:100%;
+    width:100%;
+    margin:0;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.articlepanel {
     height:40%;
     width:100%;
     margin:0;
-    position:absolute;
+    position: absolute;
     top:60%;
     left:0;
-    background: linear-gradient(to bottom, rgba(236, 219, 187, 0) 0%, rgba(236, 219, 187, 1) 100px, rgba(236, 219, 187, 1) 100%);
+    background-color:rgba(236, 219, 187, 1);
 }
 
-.imgcomparecontainer {
-    height:75%;
+.mediapanel {
+    height:60%;
     width:100%;
     margin:0;
     padding:0;
@@ -57,6 +64,22 @@
     left:0;
     background-color:black;
     overflow:hidden;
+}
+.mediacontainer {
+    height:100%;
+    width:100%;
+    margin:0;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.youtubeembed {
+    height:100%;
+    width:100%;
+    margin:0;
+    position:absolute;
+    top:0;
+    left:0;
 }
 
 .imgpast, .imgpresent, .imagecomparison {

@@ -1,76 +1,218 @@
+'use strict';
+
 var map;
-var mapMarkers = [];
+
+function throwUnimpError(obj) {
+    throw new Error('Attempt to call unimplemented function in ' + obj.constructor.name);
+}
+
+class Displayable {
+    constructor(feature, json) {
+        this.feature = feature;
+        this.isShown = false;
+    }
+
+    onClear() {
+        throwUnimpError(this);
+    }
+    
+    onSetActive() {
+        throwUnimpError(this);
+    }
+
+    get isShown() {
+        return this._isShown;
+    }
+    set isShown(val) {
+        this._isShown = val;
+    }
+}
+
+class ImageMedia extends Displayable {
+    constructor(feature, json) {
+        super(feature, json);
+        this.src = json.src;
+        this.imgTag = null;
+    }
+
+    onClear() {
+        this.imgTag.remove();
+        this.imgTag = null;
+    }
+
+    onSetActive() {
+        this.imgTag = $('<img class="mediaImage">');
+        this.imgTag.attr('src', this.src);
+        sidebar.mediaContainer.append(this.imgTag);
+    }
+}
+
+class YoutubeMedia extends Displayable {
+    constructor(feature, json) {
+        super(feature, json);
+        this.videoHtml = `<iframe class="youtubeembed" src="https://www.youtube.com/embed/${json.videoid}?autoplay=1&loop=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>`;
+        this.videoTag = null;
+    }
+
+    onClear() {
+        this.videoTag.remove();
+        this.videoTag = null;
+    }
+
+    onSetActive() {
+        this.videoTag = $(this.videoHtml);
+        sidebar.mediaContainer.append(this.videoTag);
+    }
+}
+
+class HTMLArticle extends Displayable {
+    constructor(feature, json) {
+        super(feature, json);
+        this.src = json.src;
+        this.articleTag = null;
+        this.articleHtml = null;
+
+        var thisArticle = this;
+        $.ajax(this.src, {
+            success(data) {
+                thisArticle.articleHtml = data;
+                //we might be already on-stage, in which case we'd better get ourselves attached right now
+                if (thisArticle.articleTag !== null) {
+                    thisArticle.articleTag.append($(thisArticle.articleHtml));
+                }
+            }
+        });
+    }
+
+    onClear() {
+        this.articleTag.remove();
+        this.articleTag = null;
+    }
+
+    onSetActive() {
+        this.articleTag = $('<div class="article" />');
+        sidebar.articleContainer.append(this.articleTag);
+        if (this.articleHtml !== null) {
+            this.articleTag.append($(this.articleHtml));
+        }
+    }
+}
+
+var markers = {
+    list: [],
+    mediaTypes: [
+        ['image', ImageMedia],
+        ['youtube', YoutubeMedia]
+    ],
+    articleTypes: [
+        ['html', HTMLArticle]
+    ],
+    
+    parse(json) {
+        //create OL object and extend it with our own stuff
+        let feature = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.fromLonLat(json.coords))
+        });
+
+        feature.setStyle(
+            new ol.style.Style({
+                scale:3,
+                image: new ol.style.Icon({
+                    src:'map-pin-pink.png',
+                    anchor: [0.5, 1]
+                })
+            })
+        );
+
+        feature.name = json.name;
+        feature.coords = json.coords;
+
+        let mediaClass = this.mediaTypes.filter(item => item[0] == json.media.type)[0][1];
+        feature.media = new mediaClass(feature, json.media);
+        let articleClass = this.articleTypes.filter(item => item[0] == json.article.type)[0][1];
+        feature.article = new articleClass(feature, json.article);
+
+        //create its popup and just hide it so we don't need it right now
+        let popupDiv = createPopup(json);
+        $('body').append(popupDiv);
+
+        feature.popupDiv = popupDiv;
+        feature.isRolledOver = false;
+        feature.onRollOver = function() {
+            if (!this.isRolledOver) 
+            {
+                this.isRolledOver = true;
+                let pixel = map.getPixelFromCoordinate(this.getGeometry().getCoordinates());
+                this.popupDiv.css('left', pixel[0]);
+                this.popupDiv.css('top', pixel[1]);
+                this.popupDiv.finish();
+                this.popupDiv.fadeIn(100);
+            }
+        }
+        feature.onRollOut = function() {
+            if (this.isRolledOver) {
+                this.isRolledOver = false;
+                this.popupDiv.finish();
+                this.popupDiv.fadeOut(100);
+            }
+        }
+
+        return feature;
+    }
+}
 
 var enableRolloverPopups = true;
 
-var imageComparison = {
-    isShown: false,
-    divContainer: null,
-    divPast: null,
-    divPresent: null,
-    divComparison: null,
-    divArticle: null,
-    
+var sidebar = {
+    mediaContainer: null,
+    articleContainer: null,
+    bothContainers: null,
     currentActiveMarker: null,
 
-    clear:function() {
-        this.divComparison.finish();
-        this.divArticle.finish();
+    init() {
+        this.mediaContainer = $('#mediacontainer');
+        this.articleContainer = $('#articlecontainer');
 
-        this.divComparison.fadeOut(300, function() {
-            imageComparison.divPast.find('img').remove();
-            imageComparison.divPresent.find('img').remove();
-            imageComparison.isShown = false;
-        });
-        this.divArticle.fadeOut(300, function() {
-            this.divArticle.empty();
-        });
+        this.bothContainers = $('#mediacontainer, #articlecontainer');
+
+        this.bothContainers.fadeOut(0);
     },
 
-    setup:function(feature) {
-        let mediaSpec = feature.spec.media;
-        if ('imagePast' in mediaSpec) {
-            this.divPast.append($('<img>', {src: mediaSpec.imagePast}));
-        }
-        if ('imagePresent' in mediaSpec) {
-            this.divPresent.append($('<img>', {src: mediaSpec.imagePresent}));
-        }
-
-        if (feature.articleDiv) {
-            this.divArticle.append(feature.articleDiv);
-            this.divArticle.fadeIn(300);
-        }
-        else if ('article' in mediaSpec) {
-            $.ajax(mediaSpec.article, {
-                type:'get',
-                success:function(data) {
-                    if (imageComparison.currentActiveMarker !== feature) return;
-                    feature.articleDiv = $('<div class="article"/>');
-                    feature.articleDiv.append($.parseHTML(data));
-                    imageComparison.divArticle.append(feature.articleDiv);
-                    imageComparison.divArticle.fadeIn(300);
-                }
-            });
-        }
-
-        this.divComparison.fadeIn(300);
-        this.isShown=true;
+    clearCurrentMarker() {
+        var thisSidebar = this;
+        var clearPromise = this.bothContainers.fadeOut(300).promise();
+        clearPromise.done(function() {
+            thisSidebar.currentActiveMarker.media.onClear();
+            thisSidebar.currentActiveMarker.article.onClear();
+        });
+        return clearPromise;
     },
 
-    setActiveMarker:function(feature) {
-        if (this.currentActiveMarker === feature) return;
+    displayCurrentMarker() {
+        this.currentActiveMarker.media.onSetActive();
+        this.currentActiveMarker.article.onSetActive();
+    },
 
-        if (this.isShown) {
-            this.clear();
-        }
-        if (feature !== null) {
-            this.divComparison.promise().done(function(div) {
-                imageComparison.setup(feature);
-            });
-        }
+    applyActiveMarker(feature) {
         this.currentActiveMarker = feature;
+        if (this.currentActiveMarker !== null) {
+            this.displayCurrentMarker();
+            this.bothContainers.fadeIn(300);
+        }
+    },
+
+    setActiveMarker(feature) {
+        this.bothContainers.finish();
+        if (this.currentActiveMarker !== null) {
+            var thisSidebar = this;
+            this.clearCurrentMarker().done(function() {
+                thisSidebar.applyActiveMarker(feature);
+            });
+        } else {
+            this.applyActiveMarker(feature);
+        }
     }
-};
+}
 
 function createPopup(spec) {
     let popupDiv = $('<div class="popup"><h2/><p/></div>');
@@ -84,63 +226,9 @@ function createPopup(spec) {
     return popupDiv;
 }
 
-function createMapMarker(spec) {
-    //create OL object and extend it with our own stuff
-    let feature = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat(spec.coords))
-    });
-
-    feature.setStyle(
-        new ol.style.Style({
-            scale:3,
-            image: new ol.style.Icon({
-                src:'map-pin-pink.png',
-                anchor: [0.5, 1]
-            })
-        })
-    );
-
-    feature.name = spec.name;
-    feature.coords = spec.coords;
-    feature.spec = spec;
-
-    //create its popup and just hide it so we don't need it right now
-    let popupDiv = createPopup(spec);
-    $('body').append(popupDiv);
-
-    feature.popupDiv = popupDiv;
-    feature.isRolledOver = false;
-
-    feature.onRollOver = function() {
-        if (!this.isRolledOver) 
-        {
-            this.isRolledOver = true;
-            let pixel = map.getPixelFromCoordinate(this.getGeometry().getCoordinates());
-            this.popupDiv.css('left', pixel[0]);
-            this.popupDiv.css('top', pixel[1]);
-            this.popupDiv.finish();
-            this.popupDiv.fadeIn(100);
-        }
-    }
-
-    feature.onRollOut = function() {
-        if (this.isRolledOver) {
-            this.isRolledOver = false;
-            this.popupDiv.finish();
-            this.popupDiv.fadeOut(100);
-        }
-    }
-
-    return feature;
-}
-
 function init() {
     //setup dom element references
-    imageComparison.divContainer = $('#imgcomparecontainer');
-    imageComparison.divPast = $('#imgpast');
-    imageComparison.divPresent = $('#imgpresent');
-    imageComparison.divComparison = $('#imagecomparison');
-    imageComparison.divArticle = $('#articlecontainer');
+    sidebar.init();
 
     var markerVectors = new ol.source.Vector({
         features: []
@@ -168,13 +256,15 @@ function init() {
     map.on('singleclick', function(event) {
         var featuresHit = map.getFeaturesAtPixel(event.pixel);
         if (featuresHit !== null) {
-            imageComparison.setActiveMarker(featuresHit[0]);
+            sidebar.setActiveMarker(featuresHit[0]);
+        } else {
+            sidebar.setActiveMarker(null);
         }
     });
 
     map.on('movestart', function(event) {
         enableRolloverPopups = false;
-        for (let feature of mapMarkers) {
+        for (let feature of markers.list) {
             feature.onRollOut();
         }
     });
@@ -198,7 +288,7 @@ function init() {
             featuresHit = [];
         }
 
-        for (let marker of mapMarkers) {
+        for (let marker of markers.list) {
             if (featuresHit.includes(marker)) {
                 marker.onRollOver();
             } else {
@@ -208,7 +298,7 @@ function init() {
     });
     //just try to catch any mouse movements that slip the net
     $('#map').mouseleave(function() {
-        for (let marker of mapMarkers) {
+        for (let marker of markers.list) {
             marker.onRollOut();
         }
     });
@@ -216,9 +306,9 @@ function init() {
     //load markers from other file
     $.getJSON('markers.json', function(data) {
         $.each(data, function(i, markerSpec) {
-            let newMarker = createMapMarker(markerSpec)
+            let newMarker = markers.parse(markerSpec);
             markerVectors.addFeature(newMarker);
-            mapMarkers.push(newMarker);
+            markers.list.push(newMarker);
         })
     });
 }
