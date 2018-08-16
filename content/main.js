@@ -111,7 +111,7 @@ var markers = {
     parse(json) {
         //create OL object and extend it with our own stuff
         let feature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat(json.coords))
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([json.coords[1], json.coords[0]]))
         });
 
         feature.setStyle(
@@ -132,13 +132,19 @@ var markers = {
         let articleClass = this.articleTypes.filter(item => item[0] == json.article.type)[0][1];
         feature.article = new articleClass(feature, json.article);
 
-        //create its popup and just hide it so we don't need it right now
-        let popupDiv = createPopup(json);
-        $('body').append(popupDiv);
+        if ('popup' in json) {
+            //create its popup and just hide it so we don't need it right now
+            let popupDiv = createPopup(json);
+            $('body').append(popupDiv);
+            feature.popupDiv = popupDiv;
+        } else {
+            feature.popupDiv = null;
+        }
 
-        feature.popupDiv = popupDiv;
+        
         feature.isRolledOver = false;
         feature.onRollOver = function() {
+            if (this.popupDiv === null) return;
             if (!this.isRolledOver) 
             {
                 this.isRolledOver = true;
@@ -150,6 +156,7 @@ var markers = {
             }
         }
         feature.onRollOut = function() {
+            if (this.popupDiv === null) return;
             if (this.isRolledOver) {
                 this.isRolledOver = false;
                 this.popupDiv.finish();
