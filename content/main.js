@@ -6,6 +6,79 @@ function throwUnimpError(obj) {
     throw new Error('Attempt to call unimplemented function in ' + obj.constructor.name);
 }
 
+//custom vector source which can group features, like Cluster, but adds explicitly defined geometries which group markers rather than going by pixel distance
+//it also shows the grouped markers individually when over a certain resolution threshold
+//it's bespoke enough that a project-related name is not crazy
+class MancSource extends ol.source.Vector {
+    constructor(options) {
+        super({
+            attributions: options.attributions,
+            extent: options.extent,
+            projection: options.projection,
+            wrapX: options.wrapX
+        });
+        this.source = options.source;
+        this.minGroupingResolution = options.minGroupingResolution;
+
+        this.groups = [];
+        this.looseFeatures = [];
+        this.resolution = undefined;
+    }
+
+    refreshFeatures() {
+        if (this.resolution === undefined) return;
+        const features = this.source.getFeatures();
+
+        this.looseFeatures = [];
+        for (let group of this.groups) {group.containedFeatures = [];}
+
+        //add all features which are not in any group, as we know these will never be grouped
+        for (let feature of features) {
+            let isLoose = true;
+            for (let group of this.groups) {
+                if (group.geometry.intersectsCoordinate(feature.getGeometry().getCoordinates())) {
+                    isLoose = false;
+                    group.containedFeatures.push(feature);
+                    break;
+                }
+            }
+            feature.isLoose = isLoose;
+            if (feature.isLoose) {
+                this.looseFeatures.push(feature);
+            }
+        }
+
+        this.clear();
+        this.addFeatures(this.looseFeatures);
+
+        for (let group of this.groups) {
+            if (this.resolution >= this.minGroupingResolution) {
+                group.mainFeature.isGroupFeature = true;
+                this.addFeature(group.mainFeature);
+            } else {
+                this.addFeatures(group.containedFeatures);
+            }
+        }
+    }
+
+    refresh() {
+        this.refreshFeatures();
+        super.refresh(this);
+    }
+
+    loadFeatures(extent, resolution, projection) {
+        this.source.loadFeatures(extent, resolution, projection);
+
+        // if (resolution === this.resolution) return;
+        this.resolution = resolution;
+        this.refreshFeatures();
+    }
+
+    addGroup(group) {
+        this.groups.push(group);
+    }
+}
+
 class Displayable {
     constructor(feature, json) {
         this.feature = feature;
@@ -107,22 +180,51 @@ var markers = {
     articleTypes: [
         ['html', HTMLArticle]
     ],
+
+    baseSource: null,
+    mancSource: null,
+    clusterLayer: null,
+    styleSingleMarker: null,
+    styleClusterMarker: null,
+    init() {
+        this.styleSingleMarker = new ol.style.Style({
+            scale:3,
+            image: new ol.style.Icon({
+                src:'marker_single.png',
+                anchor: [0.5, 1]
+            })
+        });
+        this.styleClusterMarker = new ol.style.Style({
+            scale:3,
+            image: new ol.style.Icon({
+                src:'marker_cluster.png',
+                anchor: [0.5, 1]
+            })
+        });
+        this.baseSource = new ol.source.Vector({
+            features: []
+        });
+        this.mancSource = new MancSource({
+            minGroupingResolution: 1.5,
+            source: this.baseSource
+        });
+        this.clusterLayer = new ol.layer.Vector({
+            source: markers.mancSource,
+            style: function(feature) {
+                if (feature.isGroupFeature) {
+                    return markers.styleClusterMarker;
+                } else {
+                    return markers.styleSingleMarker;
+                }
+            }
+        });
+    },
     
     parse(json) {
         //create OL object and extend it with our own stuff
         let feature = new ol.Feature({
             geometry: new ol.geom.Point(ol.proj.fromLonLat([json.coords[1], json.coords[0]]))
         });
-
-        feature.setStyle(
-            new ol.style.Style({
-                scale:3,
-                image: new ol.style.Icon({
-                    src:'map-pin-pink.png',
-                    anchor: [0.5, 1]
-                })
-            })
-        );
 
         feature.name = json.name;
         feature.coords = json.coords;
@@ -236,19 +338,15 @@ function createPopup(spec) {
 function init() {
     //setup dom element references
     sidebar.init();
+    markers.init();
 
-    var markerVectors = new ol.source.Vector({
-        features: []
-    })
     map = new ol.Map({
         target: 'map',
         layers: [
             new ol.layer.Tile({
                 source: new ol.source.OSM()
             }),
-            new ol.layer.Vector({
-                source: markerVectors
-            })
+            markers.clusterLayer
         ],
         view: new ol.View({
             center: [-249941.32538331934, 7072451.12963516],
@@ -277,7 +375,7 @@ function init() {
     });
     map.on('moveend', function(event) {
         enableRolloverPopups = true;
-    })
+    });
 
     //make markers look like hyperlinks
     map.on('pointermove', function(event) {
@@ -312,10 +410,21 @@ function init() {
 
     //load markers from other file
     $.getJSON('markers.json', function(data) {
-        $.each(data, function(i, markerSpec) {
+        $.each(data.markers, function(i, markerSpec) {
             let newMarker = markers.parse(markerSpec);
-            markerVectors.addFeature(newMarker);
+            markers.baseSource.addFeature(newMarker);
             markers.list.push(newMarker);
+        });
+        $.each(data.groups, function(i, data) {
+            //parse a geometry and marker from the name
+            let center = ol.proj.fromLonLat([data.center[1], data.center[0]]);
+            let group = {
+                geometry: new ol.geom.Circle(center, data.radius),
+                mainFeature: new ol.Feature({
+                    geometry: new ol.geom.Point(center)
+                })
+            };
+            markers.mancSource.addGroup(group);
         })
     });
 }

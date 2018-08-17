@@ -1,287 +1,296 @@
-[
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\piccadilly_1\\article.html"
+{
+    "groups": [
+        {
+            "center": [53.480938, -2.237201],
+            "radius": 250,
+            "name": "Piccadilly Gardens"
+        }
+    ],
+    "markers": [
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\piccadilly_1\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\piccadilly_1\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.480715,
+                -2.235151
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\piccadilly_1\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\piccadilly_2\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\piccadilly_2\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.480984,
+                -2.234997
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.480715,
-            -2.235151
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\piccadilly_2\\article.html"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\piccadilly_3\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\piccadilly_3\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.480949,
+                -2.234847
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\piccadilly_2\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\piccadilly_4\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\piccadilly_4\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.481437,
+                -2.237631
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.480984,
-            -2.234997
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\piccadilly_3\\article.html"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\piccadilly_5\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\piccadilly_5\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.481627,
+                -2.238004
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\piccadilly_3\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\piccadilly_6\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\piccadilly_6\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.481593,
+                -2.238323
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.480949,
-            -2.234847
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\piccadilly_4\\article.html"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\piccadilly_view_from_royal\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\piccadilly_view_from_royal\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.481521,
+                -2.238355
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\piccadilly_4\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\market_street_from_piccadilly\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\market_street_from_piccadilly\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.481558,
+                -2.237886
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.481437,
-            -2.237631
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\piccadilly_5\\article.html"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\deansgate_from_stannes_street\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\deansgate_from_stannes_street\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.481964,
+                -2.247076
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\piccadilly_5\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\market_street_1908\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\market_street_1908\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.48274,
+                -2.242463
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.481627,
-            -2.238004
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\piccadilly_6\\article.html"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\market_street_1904\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\market_street_1904\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.482288,
+                -2.239836
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\piccadilly_6\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\st_annes_square\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\st_annes_square\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.481871,
+                -2.245805
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.481593,
-            -2.238323
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\piccadilly_view_from_royal\\article.html"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\art_gallery\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\art_gallery\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.478699,
+                -2.242362
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\piccadilly_view_from_royal\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\cathedral\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\cathedral\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.484596,
+                -2.245567
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.481521,
-            -2.238355
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\market_street_from_piccadilly\\article.html"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\smithfield_market\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\smithfield_market\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.485187,
+                -2.234924
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\market_street_from_piccadilly\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\royal_exchange\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\royal_exchange\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.483052,
+                -2.24358
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.481558,
-            -2.237886
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\deansgate_from_stannes_street\\article.html"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\st_alberts_square\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\st_alberts_square\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.479009,
+                -2.245217
+            ]
         },
-        "media": {
-            "type": "image",
-            "src": "markers\\deansgate_from_stannes_street\\past.jpg"
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\midland_hotel\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\midland_hotel\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.477938,
+                -2.243346
+            ]
         },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.481964,
-            -2.247076
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\market_street_1908\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\market_street_1908\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.48274,
-            -2.242463
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\market_street_1904\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\market_street_1904\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.482288,
-            -2.239836
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\st_annes_square\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\st_annes_square\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.481871,
-            -2.245805
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\art_gallery\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\art_gallery\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.478699,
-            -2.242362
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\cathedral\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\cathedral\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.484596,
-            -2.245567
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\smithfield_market\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\smithfield_market\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.485187,
-            -2.234924
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\royal_exchange\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\royal_exchange\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.483052,
-            -2.24358
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\st_alberts_square\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\st_alberts_square\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.479009,
-            -2.245217
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\midland_hotel\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\midland_hotel\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.477938,
-            -2.243346
-        ]
-    },
-    {
-        "article": {
-            "type": "html",
-            "src": "markers\\cross_street\\article.html"
-        },
-        "media": {
-            "type": "image",
-            "src": "markers\\cross_street\\past.jpg"
-        },
-        "name": "Placeholder Marker Name",
-        "coords": [
-            53.482065,
-            -2.244254
-        ]
-    }
-]
+        {
+            "article": {
+                "type": "html",
+                "src": "markers\\cross_street\\article.html"
+            },
+            "media": {
+                "type": "image",
+                "src": "markers\\cross_street\\past.jpg"
+            },
+            "name": "Placeholder Marker Name",
+            "coords": [
+                53.482065,
+                -2.244254
+            ]
+        }
+    ]
+}
