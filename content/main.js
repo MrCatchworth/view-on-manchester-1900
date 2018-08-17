@@ -52,6 +52,7 @@ class MancSource extends ol.source.Vector {
         this.addFeatures(this.looseFeatures);
 
         for (let group of this.groups) {
+            console.log(`The group '${group.name} has ${group.containedFeatures.length} containted features`);
             if (this.resolution >= this.minGroupingResolution) {
                 group.mainFeature.isGroupFeature = true;
                 this.addFeature(group.mainFeature);
@@ -69,7 +70,7 @@ class MancSource extends ol.source.Vector {
     loadFeatures(extent, resolution, projection) {
         this.source.loadFeatures(extent, resolution, projection);
 
-        // if (resolution === this.resolution) return;
+        if (resolution === this.resolution) return;
         this.resolution = resolution;
         this.refreshFeatures();
     }
@@ -184,8 +185,11 @@ var markers = {
     baseSource: null,
     mancSource: null,
     clusterLayer: null,
+    groupVisLayer: null,
     styleSingleMarker: null,
     styleClusterMarker: null,
+    styleArea: null,
+
     init() {
         this.styleSingleMarker = new ol.style.Style({
             scale:3,
@@ -210,13 +214,26 @@ var markers = {
         });
         this.clusterLayer = new ol.layer.Vector({
             source: markers.mancSource,
-            style: function(feature) {
+            style(feature) {
                 if (feature.isGroupFeature) {
                     return markers.styleClusterMarker;
                 } else {
                     return markers.styleSingleMarker;
                 }
             }
+        });
+        this.styleArea = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: ol.color.asArray('#704a21ff'),
+                width: 3
+            }),
+            fill: new ol.style.Fill({
+                color: ol.color.asArray('rgba(236,219,187,0.5)')
+            })
+        })
+        this.groupVisLayer = new ol.layer.Vector({
+            source: new ol.source.Vector(),
+            style: this.styleArea
         });
     },
     
@@ -227,7 +244,6 @@ var markers = {
         });
 
         feature.name = json.name;
-        feature.coords = json.coords;
 
         let mediaClass = this.mediaTypes.filter(item => item[0] == json.media.type)[0][1];
         feature.media = new mediaClass(feature, json.media);
@@ -346,6 +362,7 @@ function init() {
             new ol.layer.Tile({
                 source: new ol.source.OSM()
             }),
+            markers.groupVisLayer,
             markers.clusterLayer
         ],
         view: new ol.View({
@@ -408,6 +425,8 @@ function init() {
         }
     });
 
+    let groupVisSource = markers.groupVisLayer.getSource();
+
     //load markers from other file
     $.getJSON('markers.json', function(data) {
         $.each(data.markers, function(i, markerSpec) {
@@ -417,14 +436,38 @@ function init() {
         });
         $.each(data.groups, function(i, data) {
             //parse a geometry and marker from the name
-            let center = ol.proj.fromLonLat([data.center[1], data.center[0]]);
+            let geom;
+            let markerPoint;
+            if (data.type === "poly") {
+                let coords = [];
+                for (let latLong of data.points) {
+                    coords.push(ol.proj.fromLonLat([latLong[1], latLong[0]]));
+                }
+                geom = new ol.geom.Polygon([coords]);
+                markerPoint = geom.getInteriorPoint();
+                console.log(geom.getCoordinates());
+                console.log(coords);
+            }
+            else if (data.type === "circle") {
+                let center = ol.proj.fromLonLat([data.center[1], data.center[0]]);
+                markerPoint = new ol.geom.Point(center);
+                geom = new ol.geom.Circle(center, data.radius);
+            }
+            
             let group = {
-                geometry: new ol.geom.Circle(center, data.radius),
+                name: data.name,
+                geometry: geom,
                 mainFeature: new ol.Feature({
-                    geometry: new ol.geom.Point(center)
+                    geometry: markerPoint
                 })
             };
+
             markers.mancSource.addGroup(group);
-        })
+            let visFeature = new ol.Feature({
+                geometry: geom
+            });
+            groupVisSource.addFeature(visFeature);
+        });
+        markers.mancSource.refresh();
     });
 }

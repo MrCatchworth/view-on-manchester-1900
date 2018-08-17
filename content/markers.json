@@ -1,9 +1,20 @@
 {
     "groups": [
         {
-            "center": [53.480938, -2.237201],
+            "type": "circle",
+            "center": [53.48085,-2.23672],
             "radius": 250,
             "name": "Piccadilly Gardens"
+        },
+        {
+            "type": "poly",
+            "points": [
+                [53.48295,-2.24264],
+                [53.48220,-2.23913],
+                [53.48195,-2.23939],
+                [53.48272,-2.24270]
+            ],
+            "name": "Market Street"
         }
     ],
     "markers": [
