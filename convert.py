@@ -100,7 +100,7 @@ def main():
     
 
     with open(os.path.join(webBasePath, 'markers.json'), 'w') as outputFile:
-        print('Writing marker specifiers to {}...', outputFile.name)
+        print('Writing json to {}...'.format(outputFile.name))
         json.dump(totalOutputObject, outputFile, indent=4)
 
 main()

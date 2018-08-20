@@ -174,7 +174,7 @@
                     "to": "past.jpg"
                 },
                 {
-                    "from": "present/st_annes_square.jpg",
+                    "from": "present/st_annes_square_fitted.jpg",
                     "to": "present.jpg"
                 }
             ],
@@ -210,7 +210,7 @@
                     "to": "past.jpg"
                 },
                 {
-                    "from": "present/cathedral.jpg",
+                    "from": "present/cathedral_fitted.jpg",
                     "to": "present.jpg"
                 }
             ],

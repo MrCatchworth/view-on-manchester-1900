@@ -1,12 +1,17 @@
 /*
     PAGEWIDE STUFF
 */
+:root {
+    --sidebarWidth: 40%;
+    --mainWidth: 60%;
+}
 body, html {height:100%; margin:0; padding:0;}
 body {
     overflow:hidden;
     background-color:rgb(236, 219, 187);
     color: rgb(75, 56, 16);
     font-size: large;
+    font-family: 'Georgia';
 }
 .fillParent {
     position: absolute;
@@ -47,18 +52,21 @@ h2 {
     color:white;
 }
 
-.map {height:100%; width:50%;}
+.map {
+    height:100%;
+    width:var(--mainWidth);
+}
 
 /*
     ARTICLE
 */
 .articlepanel {
     height:40%;
-    width:50%;
+    width:var(--sidebarWidth);
     margin:0;
     position: absolute;
     top:60%;
-    left:50%;
+    right:0;
     background-color:rgba(236, 219, 187, 1);
     transition: all 0.2s ease;
 }
@@ -81,6 +89,8 @@ h2 {
 .articlepanel.fullscreen {
     top:0;
     height:100%;
+    background-color:black;
+    color:white;
 }
 
 /*
@@ -88,12 +98,12 @@ h2 {
 */
 .mediapanel {
     height:60%;
-    width:50%;
+    width:var(--sidebarWidth);
     margin:0;
     padding:0;
     position:absolute;
     top:0;
-    left:50%;
+    left:var(--mainWidth);
     background-color:black;
     overflow:hidden;
     transition: all 0.3s ease;
@@ -117,6 +127,7 @@ h2 {
 .mediapanel.fullscreen {
     top:0;
     left:0;
+    width:var(--mainWidth);
     height:100%;
 }
 
@@ -135,6 +146,15 @@ h2 {
     bottom:10px;
     right:10px;
 }
+.btnClose {
+    position:absolute;
+    top:10px;
+    right:10px;
+    display:none;
+}
+.mediapanel.fullscreen .btnClose {
+    display:initial;
+}
 
 /* Image */
 .mediaImage {
@@ -148,7 +168,7 @@ h2 {
 
 /* Image Comparison */
 .clipPathTransition {
-    transition: clip-path 2s ease;
+    transition: clip-path 5s ease-in-out;
 }
 
 .popup {
@@ -166,4 +186,43 @@ h2 {
 .popup_thumb {
     max-width: 300px;
     height:auto;
+}
+
+/* special cases for narrow mobile-y screen */
+/* @media screen and (orientation:portrait) { */
+@media screen and (max-aspect-ratio:1/1) {
+    /* hide article panel until fullscreen */
+    .articlepanel {
+        display: none;
+    }
+    .articlepanel.fullscreen {
+        display:initial;
+        left:0;
+        top:var(--mainWidth);
+        width:100%;
+        height:var(--sidebarWidth);
+    }
+    /* media panel at bottom */
+    .mediapanel {
+        left:0;
+        top:var(--mainWidth);
+        width:100%;
+        height:var(--sidebarWidth);
+    }
+    .mediapanel.fullscreen {
+        left:0;
+        top:0;
+        width:100%;
+        height:var(--mainWidth);
+    }
+    /* map at top */
+    .map {
+        left:0;
+        top:0;
+        width:100%;
+        height:var(--mainWidth);
+    }
+    .header {
+        width:100%;
+    }
 }

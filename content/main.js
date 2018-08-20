@@ -136,6 +136,8 @@ class ImageComparisonMedia extends Displayable {
         //div which completely covers the media panel, and is just there to trap mouse events
         this.clickerDiv = null;
 
+        //handler for the timer before 
+
         this.isMouseOver = true;
     }
 
@@ -153,6 +155,8 @@ class ImageComparisonMedia extends Displayable {
     }
 
     onSetActive() {
+        this.isMouseOver = false;
+
         //create and append css elements
         this.imgBack = $('<img class="mediaImage">');
         this.imgBack.attr('src', this.srcBack);
@@ -178,7 +182,6 @@ class ImageComparisonMedia extends Displayable {
         });
         this.clickerDiv.mouseenter(function(event) {
             thisMedia.isMouseOver = true;
-            console.log('Mouse entering clicker div');
             thisMedia.imgFront.removeClass('clipPathTransition');
         });
         this.clickerDiv.mouseleave(function(event) {
@@ -198,7 +201,7 @@ class ImageComparisonMedia extends Displayable {
             let frac = isRight ? 0 : 1;
             isRight = !isRight;
             thisMedia.setSlidePercent(frac);
-        }, 5000);
+        }, 10000);
     }
 
     setSlidePercent(frac) {
@@ -385,7 +388,26 @@ var sidebar = {
     bothContainers: null,
     currentActiveMarker: null,
 
+    mediaPanel: null,
+    articlePanel: null,
+
+    setFullscreen(isFullscreen) {
+        if (isFullscreen) {
+            this.mediaPanel.addClass('fullscreen');
+            this.articlePanel.addClass('fullscreen');
+        } else {
+            this.mediaPanel.removeClass('fullscreen');
+            this.articlePanel.removeClass('fullscreen');
+        }
+    },
+
     init() {
+        $('#header').click(function(event) {
+            $('#header h1').text(`W: ${document.documentElement.clientWidth}, H: ${document.documentElement.clientHeight}`);
+        });
+        this.mediaPanel = $('#mediapanel');
+        this.articlePanel = $('#articlepanel');
+
         this.mediaContainer = $('#mediacontainer');
         this.articleContainer = $('#articlecontainer');
 
@@ -393,18 +415,13 @@ var sidebar = {
 
         this.bothContainers.fadeOut(0);
 
+        let thisSidebar = this;
         $('#btnFullscreen').click(function(event) {
-            let mediaPanel = $('#mediapanel');
-            let articlePanel = $('#articlepanel');
-
-            if (mediaPanel.hasClass('fullscreen')) {
-                mediaPanel.removeClass('fullscreen');
-                articlePanel.removeClass('fullscreen');
-            } else {
-                mediaPanel.addClass('fullscreen');
-                articlePanel.addClass('fullscreen');
-            }
-        })
+            thisSidebar.setFullscreen(!thisSidebar.mediaPanel.hasClass('fullscreen'));
+        });
+        $('#btnClose').click(function(event) {
+            thisSidebar.setFullscreen(false);
+        });
     },
 
     clearCurrentMarker() {
@@ -549,8 +566,6 @@ function init() {
                 }
                 geom = new ol.geom.Polygon([coords]);
                 markerPoint = geom.getInteriorPoint();
-                console.log(geom.getCoordinates());
-                console.log(coords);
             }
             else if (data.type === "circle") {
                 let center = ol.proj.fromLonLat([data.center[1], data.center[0]]);
