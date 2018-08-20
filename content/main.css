@@ -1,3 +1,34 @@
+/*
+    PAGEWIDE STUFF
+*/
+body, html {height:100%; margin:0; padding:0;}
+body {
+    overflow:hidden;
+    background-color:rgb(236, 219, 187);
+    color: rgb(75, 56, 16);
+    font-size: large;
+}
+.fillParent {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
+/* Text */
+h1, h2, h3, h4, h5, h6 {
+    color:rgb(121, 117, 85);
+    font-style:italic;
+}
+h2 {
+    font-size:20px;
+    margin:5;
+}
+
+/*
+    HEADER
+*/
 .header {
     position:absolute;
     top:0;
@@ -7,7 +38,6 @@
     background-color:rgb(136, 112, 46);
     overflow:hidden;
 }
-
 .header h1 {
     line-height:60px;
     margin-left:10px;
@@ -18,23 +48,18 @@
 }
 
 .map {height:100%; width:50%;}
-.sidepanel {
-    height:100%;
-    width:50%;
-    position:absolute;
-    left:50%;
-    top:0;
-    margin:0;
-    padding:0;
-}
 
-.article {
-    height:100%;
-    padding:30px;
-    position:absolute;
-    top:0;
-    left:0;
+/*
+    ARTICLE
+*/
+.articlepanel {
+    height:40%;
+    width:50%;
     margin:0;
+    position: absolute;
+    top:60%;
+    left:50%;
+    background-color:rgba(236, 219, 187, 1);
 }
 .articlecontainer {
     height:100%;
@@ -44,24 +69,26 @@
     top:0;
     left:0;
 }
-.articlepanel {
-    height:40%;
-    width:100%;
-    margin:0;
-    position: absolute;
-    top:60%;
+.article {
+    height:100%;
+    padding:30px;
+    position:absolute;
+    top:0;
     left:0;
-    background-color:rgba(236, 219, 187, 1);
+    margin:0;
 }
 
+/*
+    MEDIA
+*/
 .mediapanel {
     height:60%;
-    width:100%;
+    width:50%;
     margin:0;
     padding:0;
     position:absolute;
     top:0;
-    left:0;
+    left:50%;
     background-color:black;
     overflow:hidden;
 }
@@ -82,54 +109,30 @@
     left:0;
 }
 
-.imgpast, .imgpresent, .imagecomparison {
-    margin:0;
-    padding:0;
+/* Media Options */
+.mediaOptions {
     width:100%;
-    height:100%;
+    height:60px;
     position:absolute;
-    top:0;
     left:0;
-    overflow:hidden;
-}
-.imagecomparison {
+    bottom:0;
+    background-image: linear-gradient(to top, black, black 15px, rgba(0,0,0,0));
     display:none;
 }
+.btnFullscreen {
+    position:absolute;
+    bottom:10px;
+    right:10px;
+}
 
+/* Image */
 .mediaImage {
     position:absolute;
     top:0;
-    left:50%;
-    transform:translate(-50%,0);
+    left:0;
     width:100%;
     height:100%;
     object-fit:contain;
-}
-
-.imgpast img {
-    position:absolute;
-    top:0%;
-    left:50%;
-    transform:translate(-50%,0);
-    height:100%;
-    max-height:100%;
-    max-width:100%;
-    width:auto;
-    margin-left:auto;
-    margin-right:auto;
-}
-.imgpresent img {
-    position:absolute;
-    top:0%;
-    left:50%;
-    transform:translate(-50%,0);
-    height:100%;
-    max-height:100%;
-    width:auto;
-    margin-left:auto;
-    margin-right:auto;
-    -webkit-mask-image:linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
-    mask-image:linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
 }
 
 .popup {
@@ -140,14 +143,6 @@
     z-index:100;
     box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.3);
 }
-h1, h2, h3, h4, h5, h6 {
-    color:rgb(121, 117, 85);
-    font-style:italic;
-}
-h2 {
-    font-size:20px;
-    margin:5;
-}
 .popup p {
     font-size:14px;
     margin:10px;
@@ -155,12 +150,4 @@ h2 {
 .popup_thumb {
     max-width: 300px;
     height:auto;
-}
-
-body, html {height:100%; margin:0; padding:0;}
-body {
-    overflow:hidden;
-    background-color:rgb(236, 219, 187);
-    color: rgb(75, 56, 16);
-    font-size: large;
 }

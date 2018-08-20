@@ -14,7 +14,7 @@ baseOutputPath = 'content/markers'
 #the path we're copying images etc. from
 inputPath = 'material'
 
-totalOutputObject = []
+totalOutputObject = {}
 
 directoriesUsed = []
 indent = '    '
@@ -43,7 +43,7 @@ def processEntry(entry):
         print('{}Copy: {} -> {}...'.format(indent, fromPath, toPath))
         shutil.copy(fromPath, toPath)
     
-    #handle "simple article" shortcut
+    #"simple article" shortcut
     if 'simpleArticle' in entry:
         outputObject['article'] = {
             'type': 'html',
@@ -51,17 +51,27 @@ def processEntry(entry):
         }
         with open(os.path.join(outputPath, 'article.html'), 'w') as articleFile:
             articleFile.write('<p>{}</p>'.format(entry['simpleArticle']['text']))
+    #literal article spec
+    elif 'article' in entry:
+        outputObject['article'] = entry['article']
+    else:
+        print('{}Warning: {} will have no article spec!'.format(indent, dirName))
     
-    #handle "simple image" shortcut
+    #"simple image" shortcut
     if 'simpleImage' in entry:
         outputObject['media'] = {
             'type': 'image',
             'src': os.path.join(webPath, entry['simpleImage'])
         }
+    #literal media spec
+    elif 'media' in entry:
+        outputObject['media'] = entry['media']
+    else:
+        print('{}Warning: {} will have no media spec!'.format(indent, dirName))
     
     outputObject['name'] = 'Placeholder Marker Name'
     outputObject['coords'] = entry['latLong']
-    totalOutputObject.append(outputObject)
+    totalOutputObject['markers'].append(outputObject)
         
 
 
@@ -73,8 +83,12 @@ def main():
         os.mkdir(baseOutputPath)
 
     allJson = json.load(open(os.path.join(inputPath, 'material.json'), 'r'))
-    for entry in allJson:
+    totalOutputObject['groups'] = allJson['groups']
+    totalOutputObject['markers'] = []
+    for entry in allJson['markers']:
         processEntry(entry)
+    
+    
 
     with open(os.path.join(webBasePath, 'markers.json'), 'w') as outputFile:
         print('Writing marker specifiers to {}...', outputFile.name)

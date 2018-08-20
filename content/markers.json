@@ -2,17 +2,32 @@
     "groups": [
         {
             "type": "circle",
-            "center": [53.48085,-2.23672],
+            "center": [
+                53.48085,
+                -2.23672
+            ],
             "radius": 250,
             "name": "Piccadilly Gardens"
         },
         {
             "type": "poly",
             "points": [
-                [53.48295,-2.24264],
-                [53.48220,-2.23913],
-                [53.48195,-2.23939],
-                [53.48272,-2.24270]
+                [
+                    53.48295,
+                    -2.24264
+                ],
+                [
+                    53.4822,
+                    -2.23913
+                ],
+                [
+                    53.48195,
+                    -2.23939
+                ],
+                [
+                    53.48272,
+                    -2.2427
+                ]
             ],
             "name": "Market Street"
         }
@@ -249,8 +264,9 @@
                 "src": "markers\\royal_exchange\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\royal_exchange\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers/royal_exchange/past.jpg",
+                "srcFront": "markers/royal_exchange/present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -279,8 +295,9 @@
                 "src": "markers\\midland_hotel\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\midland_hotel\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers/midland_hotel/past.jpg",
+                "srcFront": "markers/midland_hotel/present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -294,8 +311,9 @@
                 "src": "markers\\cross_street\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\cross_street\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers/cross_street/past.jpg",
+                "srcFront": "markers/cross_street/present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [

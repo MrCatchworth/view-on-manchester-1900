@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100"
+   width="140"
    height="150"
-   viewBox="0 0 26.458333 39.687501"
+   viewBox="0 0 37.041667 39.687501"
    version="1.1"
    id="svg8"
    sodipodi:docname="marker_combined.svg"
@@ -21,7 +21,17 @@
    inkscape:export-ydpi="32"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <defs
-     id="defs2" />
+     id="defs2">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Blur"
+       id="filter1027">
+      <feGaussianBlur
+         stdDeviation="1 1"
+         result="blur"
+         id="feGaussianBlur1025" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -30,8 +40,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4"
-     inkscape:cx="22.269844"
-     inkscape:cy="82.801673"
+     inkscape:cx="43.394844"
+     inkscape:cy="85.301673"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
      showgrid="true"
@@ -39,7 +49,7 @@
      inkscape:snap-smooth-nodes="true"
      inkscape:object-paths="true"
      inkscape:snap-intersection-paths="true"
-     inkscape:snap-grids="true"
+     inkscape:snap-grids="false"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="1920"
@@ -65,6 +75,68 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Shadow"
+     style="opacity:0.39500002">
+    <g
+       id="g865"
+       transform="matrix(1,0,-0.2666666,0.73333361,-19.22639,12.523612)"
+       style="fill:#000000;fill-opacity:1;filter:url(#filter1027)">
+      <circle
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         r="13.229167"
+         cy="10.583334"
+         cx="42.333332"
+         id="path3715-2-9" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5016-7-7"
+         d="M 42.333333,37.041656 30.652846,16.794377 42.333333,16.772677 Z"
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <use
+         height="100%"
+         width="100%"
+         transform="matrix(-1,0,0,1,84.666665,1.2e-5)"
+         id="use5018-5-1"
+         xlink:href="#path5016-7-7"
+         y="0"
+         x="0"
+         style="display:inline;fill:#000000;fill-opacity:1;fill-rule:nonzero" />
+    </g>
+  </g>
+  <g
+     style="display:none;opacity:0.39500002"
+     inkscape:label="Shadow copy"
+     id="g995"
+     inkscape:groupmode="layer">
+    <g
+       style="fill:#000000;fill-opacity:1"
+       transform="matrix(1,0,-0.2666666,1,-19.22639,2.645844)"
+       id="g993">
+      <circle
+         id="circle987"
+         cx="42.333332"
+         cy="10.583334"
+         r="13.229167"
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332" />
+      <path
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 42.333333,37.041656 30.652846,16.794377 42.333333,16.772677 Z"
+         id="path989"
+         inkscape:connector-curvature="0" />
+      <use
+         style="display:inline;fill:#000000;fill-opacity:1;fill-rule:nonzero"
+         x="0"
+         y="0"
+         xlink:href="#path5016-7-7"
+         id="use991"
+         transform="matrix(-1,0,0,1,84.666665,1.2e-5)"
+         width="100%"
+         height="100%" />
+    </g>
+  </g>
   <g
      inkscape:label="Cluster"
      inkscape:groupmode="layer"
@@ -109,19 +181,10 @@
        r="13.229167"
        style="display:inline;fill:#ecdbbb;fill-opacity:1;stroke:none;stroke-width:0.26458332" />
     <path
-       style="display:inline;fill:#ecdbbb;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 13.229166,39.687488 1.5486786,19.44021 13.229166,19.41851 Z"
-       id="path5016-7"
+       style="fill:#ecdbbb;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1.5520365,19.446527 13.229171,39.687503 24.909582,19.440395 Z"
+       id="path1031"
        inkscape:connector-curvature="0" />
-    <use
-       style="display:inline;fill:#ecdbbb;fill-opacity:1;fill-rule:nonzero"
-       x="0"
-       y="0"
-       xlink:href="#path5016-7"
-       id="use5018-5"
-       transform="matrix(-1,0,0,1,26.458332,1.2e-5)"
-       width="100%"
-       height="100%" />
     <circle
        style="display:inline;fill:#704a21;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
        id="path5023-1"

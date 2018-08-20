@@ -121,6 +121,57 @@ class ImageMedia extends Displayable {
     }
 }
 
+class ImageComparisonMedia extends Displayable {
+    constructor(feature, json) {
+        super(feature, json);
+        this.srcBack = json.srcBack;
+        this.srcFront = json.srcFront;
+        this.imgBack = null;
+        this.imgFront = null;
+        this.clickerDiv = null;
+    }
+
+    onClear() {
+        this.imgBack.remove();
+        this.imgBack = null;
+
+        this.imgFront.remove();
+        this.imgFront = null;
+
+        this.clickerDiv.remove();
+        this.clickerDiv = null;
+    }
+
+    onSetActive() {
+        this.imgBack = $('<img class="mediaImage">');
+        this.imgBack.attr('src', this.srcBack);
+        sidebar.mediaContainer.append(this.imgBack);
+
+        this.imgFront = $('<img class="mediaImage">');
+        this.imgFront.attr('src', this.srcFront);
+        this.imgFront.css('background-color', 'black');
+        sidebar.mediaContainer.append(this.imgFront);
+
+        this.clickerDiv = $('<div class="fillParent">');
+        sidebar.mediaContainer.append(this.clickerDiv);
+
+        let thisMedia = this;
+        this.clickerDiv.mousemove(function(event) {
+            let offset = sidebar.mediaContainer.offset();
+            let x = event.pageX - offset.left;
+            let y = event.pageY - offset.top;
+
+            let xFraction = x / sidebar.mediaContainer.width();
+            let xPercent = xFraction*100;
+
+            let css = `inset(0 ${100-xPercent}% 0 0)`;
+            console.log(css);
+
+            thisMedia.imgFront.css('clip-path', css);
+        })
+    }
+}
+
 class YoutubeMedia extends Displayable {
     constructor(feature, json) {
         super(feature, json);
@@ -176,6 +227,7 @@ var markers = {
     list: [],
     mediaTypes: [
         ['image', ImageMedia],
+        ['imageComparison', ImageComparisonMedia],
         ['youtube', YoutubeMedia]
     ],
     articleTypes: [
@@ -195,7 +247,9 @@ var markers = {
             scale:3,
             image: new ol.style.Icon({
                 src:'marker_single.png',
-                anchor: [0.5, 1]
+                anchor: [20, 49],
+                anchorXUnits: 'pixels',
+                anchorYUnits: 'pixels'
             })
         });
         this.styleClusterMarker = new ol.style.Style({
@@ -469,5 +523,12 @@ function init() {
             groupVisSource.addFeature(visFeature);
         });
         markers.mancSource.refresh();
+    });
+
+    let mediaOptions = $('#mediaOptions');
+    $('#mediapanel').mouseenter(function(event){
+        mediaOptions.fadeIn(200);
+    }).mouseleave(function(event){
+        mediaOptions.fadeOut(200);
     });
 }
