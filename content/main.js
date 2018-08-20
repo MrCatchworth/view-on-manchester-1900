@@ -126,12 +126,22 @@ class ImageComparisonMedia extends Displayable {
         super(feature, json);
         this.srcBack = json.srcBack;
         this.srcFront = json.srcFront;
+
+        //image which is always fully displayed, and gets partially covered by the front image
         this.imgBack = null;
+
+        //image which is partially displayed, clipped so it can partially cover the back image
         this.imgFront = null;
+
+        //div which completely covers the media panel, and is just there to trap mouse events
         this.clickerDiv = null;
+
+        this.isMouseOver = true;
     }
 
     onClear() {
+        clearInterval(this.intervalId);
+
         this.imgBack.remove();
         this.imgBack = null;
 
@@ -143,11 +153,12 @@ class ImageComparisonMedia extends Displayable {
     }
 
     onSetActive() {
+        //create and append css elements
         this.imgBack = $('<img class="mediaImage">');
         this.imgBack.attr('src', this.srcBack);
         sidebar.mediaContainer.append(this.imgBack);
 
-        this.imgFront = $('<img class="mediaImage">');
+        this.imgFront = $('<img class="mediaImage clipPathTransition">');
         this.imgFront.attr('src', this.srcFront);
         this.imgFront.css('background-color', 'black');
         sidebar.mediaContainer.append(this.imgFront);
@@ -155,6 +166,7 @@ class ImageComparisonMedia extends Displayable {
         this.clickerDiv = $('<div class="fillParent">');
         sidebar.mediaContainer.append(this.clickerDiv);
 
+        //setup mouse events
         let thisMedia = this;
         this.clickerDiv.mousemove(function(event) {
             let offset = sidebar.mediaContainer.offset();
@@ -162,13 +174,38 @@ class ImageComparisonMedia extends Displayable {
             let y = event.pageY - offset.top;
 
             let xFraction = x / sidebar.mediaContainer.width();
-            let xPercent = xFraction*100;
+            thisMedia.setSlidePercent(xFraction);
+        });
+        this.clickerDiv.mouseenter(function(event) {
+            thisMedia.isMouseOver = true;
+            console.log('Mouse entering clicker div');
+            thisMedia.imgFront.removeClass('clipPathTransition');
+        });
+        this.clickerDiv.mouseleave(function(event) {
+            thisMedia.isMouseOver = false;
+            thisMedia.imgFront.addClass('clipPathTransition');
+        });
 
-            let css = `inset(0 ${100-xPercent}% 0 0)`;
-            console.log(css);
+        this.setAutoInterval();
+    }
 
-            thisMedia.imgFront.css('clip-path', css);
-        })
+    setAutoInterval() {
+        let isRight = false;
+        let thisMedia = this;
+        //setup automatic wipe-y stuff when the mouse isn't over
+        this.intervalId = setInterval(function() {
+            if (thisMedia.isMouseOver) return;
+            let frac = isRight ? 0 : 1;
+            isRight = !isRight;
+            thisMedia.setSlidePercent(frac);
+        }, 5000);
+    }
+
+    setSlidePercent(frac) {
+        let xPercent = frac*100;
+
+        let css = `inset(0 ${100-xPercent}% 0 0)`;
+        this.imgFront.css('clip-path', css);
     }
 }
 
@@ -355,6 +392,19 @@ var sidebar = {
         this.bothContainers = $('#mediacontainer, #articlecontainer');
 
         this.bothContainers.fadeOut(0);
+
+        $('#btnFullscreen').click(function(event) {
+            let mediaPanel = $('#mediapanel');
+            let articlePanel = $('#articlepanel');
+
+            if (mediaPanel.hasClass('fullscreen')) {
+                mediaPanel.removeClass('fullscreen');
+                articlePanel.removeClass('fullscreen');
+            } else {
+                mediaPanel.addClass('fullscreen');
+                articlePanel.addClass('fullscreen');
+            }
+        })
     },
 
     clearCurrentMarker() {

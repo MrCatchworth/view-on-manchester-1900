@@ -159,8 +159,9 @@
                 "src": "markers\\deansgate_from_stannes_street\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\deansgate_from_stannes_street\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers\\deansgate_from_stannes_street\\past.jpg",
+                "srcFront": "markers\\deansgate_from_stannes_street\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -174,8 +175,9 @@
                 "src": "markers\\market_street_1908\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\market_street_1908\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers\\market_street_1908\\past.jpg",
+                "srcFront": "markers\\market_street_1908\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -189,8 +191,9 @@
                 "src": "markers\\market_street_1904\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\market_street_1904\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers\\market_street_1904\\past.jpg",
+                "srcFront": "markers\\market_street_1904\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -204,8 +207,9 @@
                 "src": "markers\\st_annes_square\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\st_annes_square\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers\\st_annes_square\\past.jpg",
+                "srcFront": "markers\\st_annes_square\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -219,8 +223,9 @@
                 "src": "markers\\art_gallery\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\art_gallery\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers\\art_gallery\\past.jpg",
+                "srcFront": "markers\\art_gallery\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -234,8 +239,9 @@
                 "src": "markers\\cathedral\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\cathedral\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers\\cathedral\\past.jpg",
+                "srcFront": "markers\\cathedral\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -265,8 +271,8 @@
             },
             "media": {
                 "type": "imageComparison",
-                "srcBack": "markers/royal_exchange/past.jpg",
-                "srcFront": "markers/royal_exchange/present.jpg"
+                "srcBack": "markers\\royal_exchange\\past.jpg",
+                "srcFront": "markers\\royal_exchange\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -280,8 +286,9 @@
                 "src": "markers\\st_alberts_square\\article.html"
             },
             "media": {
-                "type": "image",
-                "src": "markers\\st_alberts_square\\past.jpg"
+                "type": "imageComparison",
+                "srcBack": "markers\\st_alberts_square\\past.jpg",
+                "srcFront": "markers\\st_alberts_square\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -296,8 +303,8 @@
             },
             "media": {
                 "type": "imageComparison",
-                "srcBack": "markers/midland_hotel/past.jpg",
-                "srcFront": "markers/midland_hotel/present.jpg"
+                "srcBack": "markers\\midland_hotel\\past.jpg",
+                "srcFront": "markers\\midland_hotel\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [
@@ -312,8 +319,8 @@
             },
             "media": {
                 "type": "imageComparison",
-                "srcBack": "markers/cross_street/past.jpg",
-                "srcFront": "markers/cross_street/present.jpg"
+                "srcBack": "markers\\cross_street\\past.jpg",
+                "srcFront": "markers\\cross_street\\present.jpg"
             },
             "name": "Placeholder Marker Name",
             "coords": [

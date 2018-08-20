@@ -63,6 +63,15 @@ def processEntry(entry):
             'type': 'image',
             'src': os.path.join(webPath, entry['simpleImage'])
         }
+    #image comparison shortcut
+    elif 'imageComparison' in entry:
+        srcBack = os.path.join(webPath, entry['imageComparison'][0])
+        srcFront = os.path.join(webPath, entry['imageComparison'][1])
+        outputObject['media'] = {
+            'type': 'imageComparison',
+            'srcBack': srcBack,
+            'srcFront': srcFront
+        }
     #literal media spec
     elif 'media' in entry:
         outputObject['media'] = entry['media']

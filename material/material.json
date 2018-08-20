@@ -120,11 +120,11 @@
                     "to": "past.jpg"
                 },
                 {
-                    "from": "manchester1900deansgatefromstannesstreend.jpg",
+                    "from": "present/st_annes_street_from_deansgate.jpg",
                     "to": "present.jpg"
                 }
             ],
-            "simpleImage": "past.jpg",
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "Note the heavy canvas canopies protecting the window shop displays. At a time when dyes were less stable and faded badly (especially blues), it was important to protect merchandise whilst at the same time, offering courtesy protection from the weather to window shoppers."
             },
@@ -136,9 +136,13 @@
                 {
                     "from": "manchester1900marketstreet1908.jpg",
                     "to": "past.jpg"
+                },
+                {
+                    "from": "present/market_street_2.jpg",
+                    "to": "present.jpg"
                 }
             ],
-            "simpleImage": "past.jpg",
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "A busy shopping thoroughfare, looking up towards Piccadilly. The postcard was sent by a traveller from South Shields to his family back home. ‘Bert’ writes: 1-8-1908, 5.10pm, Dear Ada, Arrived safely, have got ‘digs’ at the Deansgate Hotel, and have discovered the exam centre. Yours & co, Bert. <br /><br /> Let’s hope he passed his exam!"
             },
@@ -150,9 +154,13 @@
                 {
                     "from": "manchester1900marketstreet1904.jpg",
                     "to": "past.jpg"
+                },
+                {
+                    "from": "present/market_street_1.jpg",
+                    "to": "present.jpg"
                 }
             ],
-            "simpleImage": "past.jpg",
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "A less busy scene than usual, but with the crisp definition it is easy to make out some of the businesses shown. Contemporary trade directories would enable a researcher to follow the progress of such businesses in the city centre. Other useful sources would include Fire Insurance Maps, OS maps (1:2500 scale or more), and newspaper advertisements for the businesses. Archives+ may hold business records, but corporate history sources are notoriously prone to damage and loss."
             },
@@ -164,9 +172,13 @@
                 {
                     "from": "manchester1900stannessquare.jpg",
                     "to": "past.jpg"
+                },
+                {
+                    "from": "present/st_annes_square.jpg",
+                    "to": "present.jpg"
                 }
             ],
-            "simpleImage": "past.jpg",
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "Now pedestrianised, in the early twentieth century it was a key hansom cab rank as well as being one of the prestige shopping areas of the city centre.  Close to King Street and the presitigious Kendal. Milne on Deansgate, it attracted what were known as the ‘carriage trade’ shoppers, the aspirant middle class of the new Manchester suburbs."
             },
@@ -178,9 +190,13 @@
                 {
                     "from": "manchester1900artgallery.jpg",
                     "to": "past.jpg"
+                },
+                {
+                    "from": "present/art_gallery.jpg",
+                    "to": "present.jpg"
                 }
             ],
-            "simpleImage": "past.jpg",
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "The City Art Gallery building, which faces onto Mosley Street, was designed and constructed between 1824–35. It originally housed the Royal Manchester Institution."
             },
@@ -192,9 +208,13 @@
                 {
                     "from": "manchester1900cathedral.jpg",
                     "to": "past.jpg"
+                },
+                {
+                    "from": "present/cathedral.jpg",
+                    "to": "present.jpg"
                 }
             ],
-            "simpleImage": "past.jpg",
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "Originally the collegiate church, Under the Cathedrals Act 1840, the warden and fellows of the collegiate church were translated into a dean and canons in preparation for becoming the cathedral of the new Manchester Diocese which came into effect in 1847. The building was extensively renovated in 1882. During the Manchester Blitz in 1940, a German bomb severely damaged the cathedral. It took almost 20 years to complete the repairs, in the course of which the Guy Chapel was rebuilt to the designs of Hubert Worthington. The cathedral was again damaged in the IRA bombing in June 1996."
             },
@@ -226,11 +246,7 @@
                     "to": "present.jpg"
                 }
             ],
-            "media": {
-                "type": "imageComparison",
-                "srcBack": "markers/royal_exchange/past.jpg",
-                "srcFront": "markers/royal_exchange/present.jpg"
-            },
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "Designed by Thomas Harrison in the Classical style, this was a replacement for the old exchange and is at the junction of Market Street and Exchange Street. It was constructed in Runcorn stone. The cost, £20,000, was paid for in advance by 400 members who bought £50 shares and paid £30 each to buy the site. It was badly damaged in the 1996 bombing, but has since been restored."
             },
@@ -242,9 +258,13 @@
                 {
                     "from": "manchester1900albertsquare.jpg",
                     "to": "past.jpg"
+                },
+                {
+                    "from": "present/st_alberts_square.jpg",
+                    "to": "present.jpg"
                 }
             ],
-            "simpleImage": "past.jpg",
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "The square's creation arose out of a project by Manchester Corporation's Monuments Committee to erect a memorial to Prince Albert who had died of typhoid in 1861. After initial proposals to create a memorial library, museum or botanical gardens, the committee decided to erect a statue in a decorated canopy. It was originally planned to place the monument in front of the Royal Infirmary building at Piccadilly, between the statues of Wellington and Peel. However it was felt that its ornate Gothic design was not in keeping with the neoclassical infirmary. In 1863, land was offered by the Corporation which was cleared to make way for a public space. In 1868, building work for the Gothic style town hall was begun, and is to the rear of the Albert memorial which is in the centre of this image."
             },
@@ -262,11 +282,7 @@
                     "to": "present.jpg"
                 }
             ],
-            "media": {
-                "type": "imageComparison",
-                "srcBack": "markers/midland_hotel/past.jpg",
-                "srcFront": "markers/midland_hotel/present.jpg"
-            },
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "This fine building was erected to serve upmarket travellers from the adjacent Central Railway Station, now Manchester Arena. Built in 1903, this postcard was probably printed to commemorate its opening. The hotel had its own roof terrace and theatre and is famously the place where Rolls and Royce had their first meeting in 1904, before establishing their business partnership of Rolls-Royce motor cars."
             },
@@ -284,11 +300,7 @@
                     "to": "present.jpg"
                 }
             ],
-            "media": {
-                "type": "imageComparison",
-                "srcBack": "markers/cross_street/past.jpg",
-                "srcFront": "markers/cross_street/present.jpg"
-            },
+            "imageComparison": ["past.jpg", "present.jpg"],
             "simpleArticle": {
                 "text": "This image clearly dates from before the First World War, as the pictured Royal Exchange still has its portico. This was removed during road widening, as were the steps to the building. By the 1920’s it was the most expensive street in Manchester when it came to buying properties."
             },

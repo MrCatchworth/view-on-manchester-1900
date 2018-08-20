@@ -60,6 +60,7 @@ h2 {
     top:60%;
     left:50%;
     background-color:rgba(236, 219, 187, 1);
+    transition: all 0.2s ease;
 }
 .articlecontainer {
     height:100%;
@@ -77,6 +78,10 @@ h2 {
     left:0;
     margin:0;
 }
+.articlepanel.fullscreen {
+    top:0;
+    height:100%;
+}
 
 /*
     MEDIA
@@ -91,6 +96,7 @@ h2 {
     left:50%;
     background-color:black;
     overflow:hidden;
+    transition: all 0.3s ease;
 }
 .mediacontainer {
     height:100%;
@@ -107,6 +113,11 @@ h2 {
     position:absolute;
     top:0;
     left:0;
+}
+.mediapanel.fullscreen {
+    top:0;
+    left:0;
+    height:100%;
 }
 
 /* Media Options */
@@ -133,6 +144,11 @@ h2 {
     width:100%;
     height:100%;
     object-fit:contain;
+}
+
+/* Image Comparison */
+.clipPathTransition {
+    transition: clip-path 2s ease;
 }
 
 .popup {
