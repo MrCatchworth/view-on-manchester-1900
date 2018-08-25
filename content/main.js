@@ -505,6 +505,9 @@ var sidebar = {
 
     setActiveMarker(feature) {
         this.bothContainers.finish();
+        
+        if (this.currentActiveMarker === feature) return;
+        
         if (this.currentActiveMarker !== null) {
             var thisSidebar = this;
             this.clearCurrentMarker().done(function() {
