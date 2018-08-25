@@ -449,11 +449,9 @@ var sidebar = {
 
     setFullscreen(isFullscreen) {
         if (isFullscreen) {
-            this.mediaPanel.addClass('fullscreen');
-            this.articlePanel.addClass('fullscreen');
+            $('html').addClass('fullscreen');
         } else {
-            this.mediaPanel.removeClass('fullscreen');
-            this.articlePanel.removeClass('fullscreen');
+            $('html').removeClass('fullscreen');
         }
     },
 
@@ -473,7 +471,7 @@ var sidebar = {
 
         let thisSidebar = this;
         $('#btnFullscreen').click(function(event) {
-            thisSidebar.setFullscreen(!thisSidebar.mediaPanel.hasClass('fullscreen'));
+            thisSidebar.setFullscreen(!$('html').hasClass('fullscreen'));
         });
         $('#btnClose').click(function(event) {
             thisSidebar.setFullscreen(false);
@@ -507,7 +505,7 @@ var sidebar = {
         this.bothContainers.finish();
         
         if (this.currentActiveMarker === feature) return;
-        
+
         if (this.currentActiveMarker !== null) {
             var thisSidebar = this;
             this.clearCurrentMarker().done(function() {
