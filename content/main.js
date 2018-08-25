@@ -136,13 +136,22 @@ class ImageComparisonMedia extends Displayable {
         //div which completely covers the media panel, and is just there to trap mouse events
         this.clickerDiv = null;
 
-        //handler for the timer before 
+        //delay after the end of mouse interaction before auto-wipe begins
+        this.autoWipeDelayMs = 4000;
+        //setTimer handler for the above
+        this.autoWipeDelayHandler = null;
+
+        //interval between auto-wipe passes
+        this.autoWipeMs = 10000;
+
+        //the compare fraction last passed to setSlidePercent
+        this.lastSlideFraction = 0;
 
         this.isMouseOver = true;
     }
 
     onClear() {
-        clearInterval(this.intervalId);
+        this.stopAutoWipe();
 
         this.imgBack.remove();
         this.imgBack = null;
@@ -152,6 +161,49 @@ class ImageComparisonMedia extends Displayable {
 
         this.clickerDiv.remove();
         this.clickerDiv = null;
+    }
+
+    startAutoWipe() {
+        this.stopAutoWipe();
+
+        let thisMedia = this;
+        this.autoWipeDelayHandler = setTimeout(function() {
+            thisMedia.startWiping();
+        }, this.autoWipeDelayMs);
+    }
+
+    stopAutoWipe() {
+        if (this.autoWipeDelayHandler !== null) {
+            clearTimeout(this.autoWipeDelayHandler);
+            this.autoWipeDelayHandler = null;
+        }
+        if (this.autoWipeHandler !== null) {
+            clearTimeout(this.autoWipeHandler);
+            this.autoWipeHandler = null;
+        }
+    }
+
+    startWiping() {
+        this.imgFront.addClass('clipPathTransition');
+
+        let thisMedia = this;
+        this.autoWipeHandler = setInterval(function() {
+            thisMedia.onWipe();
+        }, this.autoWipeMs);
+
+        this.onWipe();
+    }
+
+    onWipe() {
+        //set wipe to full left or right, whichever would move more
+        let frac;
+        if (this.lastSlideFraction > 0.5) {
+            frac = 0;
+        } else {
+            frac = 1;
+        }
+
+        this.setSlideFraction(frac);
     }
 
     onSetActive() {
@@ -172,39 +224,43 @@ class ImageComparisonMedia extends Displayable {
 
         //setup mouse events
         let thisMedia = this;
-        this.clickerDiv.mousemove(function(event) {
-            let offset = sidebar.mediaContainer.offset();
-            let x = event.pageX - offset.left;
-            let y = event.pageY - offset.top;
-
-            let xFraction = x / sidebar.mediaContainer.width();
-            thisMedia.setSlidePercent(xFraction);
+        this.clickerDiv.on('mousemove touchmove', function(event) {
+            if (event.type == 'touchmove') {
+                thisMedia.onPoint(event.touches[0].pageX);
+            } else {
+                thisMedia.onPoint(event.pageX);
+            }
         });
-        this.clickerDiv.mouseenter(function(event) {
+        this.clickerDiv.on('mouseenter touchstart', function(event) {
             thisMedia.isMouseOver = true;
+            if (event.type == 'touchstart') {
+                thisMedia.onPoint(event.touches[0].pageX);
+            } else {
+                thisMedia.onPoint(event.pageX);
+            }
             thisMedia.imgFront.removeClass('clipPathTransition');
+            thisMedia.stopAutoWipe();
         });
-        this.clickerDiv.mouseleave(function(event) {
+        this.clickerDiv.on('mouseleave touchend', function(event) {
             thisMedia.isMouseOver = false;
-            thisMedia.imgFront.addClass('clipPathTransition');
+            thisMedia.startAutoWipe();
         });
 
-        this.setAutoInterval();
+        this.startAutoWipe();
+        this.setSlideFraction(1);
     }
 
-    setAutoInterval() {
-        let isRight = false;
-        let thisMedia = this;
-        //setup automatic wipe-y stuff when the mouse isn't over
-        this.intervalId = setInterval(function() {
-            if (thisMedia.isMouseOver) return;
-            let frac = isRight ? 0 : 1;
-            isRight = !isRight;
-            thisMedia.setSlidePercent(frac);
-        }, 10000);
+    onPoint(pageX) {
+        let offset = sidebar.mediaContainer.offset();
+
+        let x = pageX - offset.left;
+        let xFraction = x / sidebar.mediaContainer.width();
+        
+        this.setSlideFraction(xFraction);
     }
 
-    setSlidePercent(frac) {
+    setSlideFraction(frac) {
+        this.lastSlideFraction = frac;
         let xPercent = frac*100;
 
         let css = `inset(0 ${100-xPercent}% 0 0)`;

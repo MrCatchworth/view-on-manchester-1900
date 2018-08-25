@@ -10,7 +10,7 @@ body {
     overflow:hidden;
     background-color:rgb(236, 219, 187);
     color: rgb(75, 56, 16);
-    font-size: large;
+    font-size: 16;
     font-family: 'Georgia';
 }
 .fillParent {
@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, h6 {
     font-style:italic;
 }
 h2 {
-    font-size:20px;
+    font-size: 120%;
     margin:5;
 }
 
@@ -35,19 +35,18 @@ h2 {
     HEADER
 */
 .header {
+    display:flex;
     position:absolute;
     top:0;
     left:0;
-    width:50%;
-    height:60px;
+    width:var(--mainWidth);
     background-color:rgb(136, 112, 46);
     overflow:hidden;
+    align-content: center;
 }
 .header h1 {
-    line-height:60px;
-    margin-left:10px;
-    margin-top:0;
-    font-size:35px;
+    line-height:100%;
+    font-size:150%;
     vertical-align:middle;
     color:white;
 }
@@ -180,7 +179,7 @@ h2 {
     box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.3);
 }
 .popup p {
-    font-size:14px;
+    font-size:90%;
     margin:10px;
 }
 .popup_thumb {
