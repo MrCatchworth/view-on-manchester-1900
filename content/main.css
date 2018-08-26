@@ -4,8 +4,8 @@
 :root {
     --sidebarWidth: 40%;
     --mainWidth: 60%;
-    --darkColor: rgb(75, 56, 16);
-    --lightColor: rgb(236, 219, 187);
+    --darkColor: #4b3810;
+    --lightColor: #ecdbbb;
 }
 body, html {height:100%; margin:0; padding:0;}
 body {
@@ -14,6 +14,11 @@ body {
     color:var(--darkColor);
     font-size: 16;
     font-family: 'Georgia';
+}
+@media screen and (max-width:500px), screen and (max-height:500px) {
+    body {
+        font-size:12;
+    }
 }
 .fillParent {
     position: absolute;
@@ -49,11 +54,11 @@ h2 {
     background-color:var(--darkColor);
     overflow:hidden;
     align-content: center;
-    transition: all 0.2s ease;
+    transition: all 0.4s ease;
     z-index:100;
 }
 .header h1 {
-    line-height:100%;
+    line-height:50%;
     font-size:150%;
     vertical-align:middle;
     color:white;
@@ -90,11 +95,17 @@ h2 {
 }
 .article {
     height:100%;
-    padding:30px;
+    padding:10px;
     position:absolute;
     top:0;
     left:0;
     margin:0;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+.article p {
+    margin-top:0.5em;
+    margin-bottom:0.5em;
 }
 .fullscreen .articlepanel {
     top:0;
@@ -199,7 +210,6 @@ h2 {
 }
 
 /* special cases for narrow mobile-y screen */
-/* @media screen and (orientation:portrait) { */
 @media screen and (max-aspect-ratio:1/1) {
     /* hide article panel until fullscreen */
     .articlepanel {
