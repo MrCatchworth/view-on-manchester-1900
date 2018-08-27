@@ -349,54 +349,80 @@ var markers = {
         ['html', HTMLArticle]
     ],
 
-    //map stuff
+    style: {
+        image: null,
+        comparison: null,
+        generic: null,
+
+        albumIcon: null,
+
+        init() {
+            this.comparison = new ol.style.Style({
+                scale:3,
+                image: new ol.style.Icon({
+                    src:'marker_comparison.png',
+                    anchor: [20, 49],
+                    anchorXUnits: 'pixels',
+                    anchorYUnits: 'pixels'
+                })
+            });
+            this.image = new ol.style.Style({
+                scale:3,
+                image: new ol.style.Icon({
+                    src:'marker_image.png',
+                    anchor: [20, 49],
+                    anchorXUnits: 'pixels',
+                    anchorYUnits: 'pixels'
+                })
+            });
+            this.generic = new ol.style.Style({
+                scale:3,
+                image: new ol.style.Icon({
+                    src:'marker_single.png',
+                    anchor: [20, 49],
+                    anchorXUnits: 'pixels',
+                    anchorYUnits: 'pixels'
+                })
+            });
+            this.albumIcon = new ol.style.Icon({
+                src:'marker_album.png',
+                anchor: [.5, .5],
+            })
+        },
+
+        getAlbumStyle(feature) {
+            return new ol.style.Style({
+                scale:3,
+                image: this.albumIcon,
+                text: new ol.style.Text({
+                    text: feature.group.containedFeatures.length.toString(),
+                    font: 'bold 20px Calibri',
+                    fill: new ol.style.Fill({color: ol.color.asArray('#000000ff')}),
+                    stroke: new ol.style.Stroke({color: ol.color.asArray('#ffffffff'), width:1}),
+                    placement: 'point',
+                    offsetX: 40,
+                    offsetY: 0,
+                    overflow: true
+                })
+            });
+        }
+    },
+
+    //source where point features go, before any grouping
     baseSource: null,
-    groupSource: null,
+    //combines baseSource and groupSource into a grouped display of markers
     mancSource: null,
+    //layer which holds the point features shown by mancSource
     clusterLayer: null,
+
+    //source where area-based group features go
+    groupSource: null,
+    //layer which displays the area-based group features
     groupLayer: null,
 
-    //marker styles
-    styleImageMarker: null,
-    styleComparisonMarker: null,
-    styleSingleMarker: null,
-    styleClusterMarker: null,
-
     init() {
-        this.styleComparisonMarker = new ol.style.Style({
-            scale:3,
-            image: new ol.style.Icon({
-                src:'marker_comparison.png',
-                anchor: [20, 49],
-                anchorXUnits: 'pixels',
-                anchorYUnits: 'pixels'
-            })
-        });
-        this.styleImageMarker = new ol.style.Style({
-            scale:3,
-            image: new ol.style.Icon({
-                src:'marker_image.png',
-                anchor: [20, 49],
-                anchorXUnits: 'pixels',
-                anchorYUnits: 'pixels'
-            })
-        });
-        this.styleSingleMarker = new ol.style.Style({
-            scale:3,
-            image: new ol.style.Icon({
-                src:'marker_single.png',
-                anchor: [20, 49],
-                anchorXUnits: 'pixels',
-                anchorYUnits: 'pixels'
-            })
-        });
-        this.styleClusterMarker = new ol.style.Style({
-            scale:3,
-            image: new ol.style.Icon({
-                src:'marker_cluster.png',
-                anchor: [0.5, 1]
-            })
-        });
+        this.style.init();
+
         this.baseSource = new ol.source.Vector({
             features: []
         });
@@ -412,29 +438,13 @@ var markers = {
             source: markers.mancSource,
             style(feature) {
                 if (feature.isAlbum) {
-                    return  new ol.style.Style({
-                        scale:3,
-                        image: new ol.style.Icon({
-                            src:'marker_album.png',
-                            anchor: [.5, .5],
-                        }),
-                        text: new ol.style.Text({
-                            text: feature.group.containedFeatures.length.toString(),
-                            font: 'bold 20px Calibri',
-                            fill: new ol.style.Fill({color: ol.color.asArray('#000000ff')}),
-                            stroke: new ol.style.Stroke({color: ol.color.asArray('#ffffffff'), width:1}),
-                            placement: 'point',
-                            offsetX: 40,
-                            offsetY: 0,
-                            overflow: true
-                        })
-                    });;
+                    return markers.style.getAlbumStyle(feature);
                 } else if (feature.media instanceof ImageComparisonMedia) {
-                    return markers.styleComparisonMarker;
+                    return markers.style.comparison;
                 } else if (feature.media instanceof ImageMedia) {
-                    return markers.styleImageMarker;
+                    return markers.style.image;
                 } else {
-                    return markers.styleSingleMarker;
+                    return markers.style.generic;
                 }
             }
         });
@@ -545,10 +555,16 @@ var sidebar = {
     mediaContainer: null,
     articleContainer: null,
     bothContainers: null,
-    currentActiveMarker: null,
 
     mediaPanel: null,
     articlePanel: null,
+
+    welcomeMedia: new ImageMedia(null, {
+        src:'splash_screen.jpg'
+    }),
+    welcomeArticle: new HTMLArticle(null, {
+        src:'article_welcome.html'
+    }),
 
     setFullscreen(isFullscreen) {
         if (isFullscreen) {
@@ -556,6 +572,39 @@ var sidebar = {
         } else {
             $('html').removeClass('fullscreen');
         }
+    },
+
+    setActiveDisplayable(element, displayable) {
+        element.finish();
+        let currentDisplayable = element.data('displayable');
+
+        if (displayable === currentDisplayable) return;
+
+        if (currentDisplayable) {
+            this.clearDisplayable(element, function() {
+                this.applyDisplayable(element, displayable);
+            });
+        } else {
+            this.applyDisplayable(element, displayable);
+        }
+    },
+
+    applyDisplayable(element, displayable) {
+        element.data('displayable', displayable);
+
+        if (displayable) {
+            displayable.onSetActive();
+            element.fadeIn(300);
+        }
+    },
+
+    clearDisplayable(element, callback) {
+        let thisSidebar = this;
+        element.fadeOut(300, function() {
+            let displayable = element.data('displayable');
+            if (displayable) displayable.onClear();
+            callback.call(thisSidebar);
+        });
     },
 
     init() {
@@ -579,44 +628,22 @@ var sidebar = {
         $('#btnClose').click(function(event) {
             thisSidebar.setFullscreen(false);
         });
-    },
 
-    clearCurrentMarker() {
-        var thisSidebar = this;
-        var clearPromise = this.bothContainers.fadeOut(300).promise();
-        clearPromise.done(function() {
-            thisSidebar.currentActiveMarker.media.onClear();
-            thisSidebar.currentActiveMarker.article.onClear();
-        });
-        return clearPromise;
-    },
-
-    displayCurrentMarker() {
-        this.currentActiveMarker.media.onSetActive();
-        this.currentActiveMarker.article.onSetActive();
-    },
-
-    applyActiveMarker(feature) {
-        this.currentActiveMarker = feature;
-        if (this.currentActiveMarker !== null) {
-            this.displayCurrentMarker();
-            this.bothContainers.fadeIn(300);
-        }
+        this.setActiveDisplayable(this.mediaContainer, this.welcomeMedia);
+        this.setActiveDisplayable(this.articleContainer, this.welcomeArticle);
     },
 
     setActiveMarker(feature) {
-        this.bothContainers.finish();
-        
-        if (this.currentActiveMarker === feature) return;
-
-        if (this.currentActiveMarker !== null) {
-            var thisSidebar = this;
-            this.clearCurrentMarker().done(function() {
-                thisSidebar.applyActiveMarker(feature);
-            });
+        let media, article;
+        if (!feature) {
+            media = null;
+            article = null;
         } else {
-            this.applyActiveMarker(feature);
+            media = 'media' in feature ? feature.media : null;
+            article = 'article' in feature ? feature.article : null;
         }
+        this.setActiveDisplayable(this.mediaContainer, media);
+        this.setActiveDisplayable(this.articleContainer, article);
     }
 }
 
