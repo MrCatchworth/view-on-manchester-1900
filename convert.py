@@ -4,6 +4,7 @@ import json
 import shutil
 import sys
 import os
+from PIL import Image
 
 #the path relative to which the browser will make requests from
 webBasePath = 'content'
@@ -13,6 +14,9 @@ baseOutputPath = 'content/markers'
 
 #the path we're copying images etc. from
 inputPath = 'material'
+
+# the max size of generated thumbnails
+thumbnailSize = 150, 96
 
 totalOutputObject = {}
 
@@ -27,13 +31,29 @@ def processEntry(entry):
     if dirName in directoriesUsed:
         raise ValueError('Marker directory {} is already used '.format(dirName))
 
+    #the path where stuff for this marker should go
     outputPath = os.path.join(baseOutputPath, dirName)
+
+    #the path from the base web path to the marker's directory
     webPath = os.path.relpath(outputPath, webBasePath)
+
     if not os.path.isdir(outputPath):
         print('{}Creating directory {}...'.format(indent, outputPath))
         os.mkdir(outputPath)
     else:
         print('{}{} already exists'.format(indent, outputPath))
+
+    #generate the thumbnail image
+    if 'thumb' in entry:
+        thumbPath = entry['thumb']
+        print('{}Generating thumbnail from {}...'.format(indent, thumbPath))
+        thumbOutPath = os.path.join(outputPath, 'thumb.jpg')
+
+        thumbImage = Image.open(os.path.join(inputPath, thumbPath))
+        thumbImage.thumbnail(thumbnailSize)
+        thumbImage.save(thumbOutPath, 'JPEG')
+
+        outputObject['thumb'] = os.path.join(webPath, 'thumb.jpg')
     
     #handle the copy directives
     for copyEntry in entry['copy']:

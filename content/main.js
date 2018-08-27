@@ -2,6 +2,9 @@
 
 var map;
 
+//if the resolution is less than this (i.e. the view is more zoomed in) we consider the viewer to be "highly zoomed in"
+const highZoomResolution = 1.5;
+
 function throwUnimpError(obj) {
     throw new Error('Attempt to call unimplemented function in ' + obj.constructor.name);
 }
@@ -39,6 +42,8 @@ class MancSource extends ol.source.Vector {
 
         feature.isAlbum = true;
         feature.group = group;
+
+        feature.article = group.albumArticle;
 
         return feature;
     }
@@ -338,6 +343,37 @@ class HTMLArticle extends Displayable {
     }
 }
 
+class AlbumListingArticle extends Displayable {
+    constructor(feature, json) {
+        super(feature, json);
+    }
+
+    onClear() {
+        sidebar.articleContainer.empty();
+        $('html').removeClass('hideMedia');
+    }
+
+    onSetActive() {
+        sidebar.articleContainer.append(`<h2>${this.feature.name}</h2>`);
+        for (let marker of this.feature.containedFeatures) {
+
+            //create row for album entry
+            let entry = $('<a class="albumEntry" href="#"></a>');
+
+            // add cell for image
+            entry.append(`<div class="albumImage"><img src="${marker.thumbSrc}"></div>`);
+            //add cell for title/description
+            entry.append('<div class="albumEntryInfo"><h2>Test Header</h2><div>Test Description</div></div>');
+            sidebar.articleContainer.append(entry);
+
+            entry.click(function() {
+                sidebar.setActiveMarker(marker);
+            });
+        }
+        $('html').addClass('hideMedia');
+    }
+}
+
 var markers = {
     list: [],
     mediaTypes: [
@@ -430,7 +466,7 @@ var markers = {
             features: []
         });
         this.mancSource = new MancSource({
-            minGroupingResolution: 1.5,
+            minGroupingResolution: highZoomResolution,
             source: this.baseSource,
             groupSource: this.groupSource
         });
@@ -452,7 +488,7 @@ var markers = {
         this.groupLayer = new ol.layer.Vector({
             source: this.groupSource,
             style(feature, resolution) {
-                let alpha = resolution < 1.5 ? '66' : 'ff';
+                let alpha = resolution < highZoomResolution ? '66' : 'ff';
                 return new ol.style.Style({
                     stroke: new ol.style.Stroke({
                         color: ol.color.asArray('#704a21ff'),
@@ -541,6 +577,7 @@ var markers = {
             geometry: geom
         });
         groupFeature.set('groupName', groupJson.name);
+        groupFeature.albumArticle = new AlbumListingArticle(groupFeature, {});
         return groupFeature;
     },
 
@@ -558,6 +595,8 @@ var sidebar = {
 
     mediaPanel: null,
     articlePanel: null,
+
+    activeMarker: null,
 
     welcomeMedia: new ImageMedia(null, {
         src:'splash_screen.jpg'
@@ -635,12 +674,12 @@ var sidebar = {
 
     setActiveMarker(feature) {
         let media, article;
-        if (!feature) {
-            media = null;
-            article = null;
-        } else {
+        if (feature) {
             media = 'media' in feature ? feature.media : null;
             article = 'article' in feature ? feature.article : null;
+        } else {
+            media = null;
+            article = null;
         }
         this.setActiveDisplayable(this.mediaContainer, media);
         this.setActiveDisplayable(this.articleContainer, article);
@@ -737,6 +776,9 @@ function init() {
     $.getJSON('markers.json', function(data) {
         $.each(data.markers, function(i, markerSpec) {
             let newMarker = markers.parse(markerSpec);
+            if ('thumb' in markerSpec) {
+                newMarker.thumbSrc = markerSpec.thumb;
+            }
             markers.baseSource.addFeature(newMarker);
             markers.list.push(newMarker);
         });

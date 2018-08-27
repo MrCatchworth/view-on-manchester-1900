@@ -34,6 +34,7 @@
     ],
     "markers": [
         {
+            "thumb": "markers\\piccadilly_1\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\piccadilly_1\\article.html"
@@ -49,6 +50,7 @@
             ]
         },
         {
+            "thumb": "markers\\piccadilly_2\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\piccadilly_2\\article.html"
@@ -64,6 +66,7 @@
             ]
         },
         {
+            "thumb": "markers\\piccadilly_3\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\piccadilly_3\\article.html"
@@ -79,6 +82,7 @@
             ]
         },
         {
+            "thumb": "markers\\piccadilly_4\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\piccadilly_4\\article.html"
@@ -94,6 +98,7 @@
             ]
         },
         {
+            "thumb": "markers\\piccadilly_5\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\piccadilly_5\\article.html"
@@ -109,6 +114,7 @@
             ]
         },
         {
+            "thumb": "markers\\piccadilly_6\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\piccadilly_6\\article.html"
@@ -124,6 +130,7 @@
             ]
         },
         {
+            "thumb": "markers\\piccadilly_view_from_royal\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\piccadilly_view_from_royal\\article.html"
@@ -139,6 +146,7 @@
             ]
         },
         {
+            "thumb": "markers\\market_street_from_piccadilly\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\market_street_from_piccadilly\\article.html"
@@ -154,6 +162,7 @@
             ]
         },
         {
+            "thumb": "markers\\deansgate_from_stannes_street\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\deansgate_from_stannes_street\\article.html"
@@ -170,6 +179,7 @@
             ]
         },
         {
+            "thumb": "markers\\market_street_1908\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\market_street_1908\\article.html"
@@ -186,6 +196,7 @@
             ]
         },
         {
+            "thumb": "markers\\market_street_1904\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\market_street_1904\\article.html"
@@ -202,6 +213,7 @@
             ]
         },
         {
+            "thumb": "markers\\st_annes_square\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\st_annes_square\\article.html"
@@ -218,6 +230,7 @@
             ]
         },
         {
+            "thumb": "markers\\art_gallery\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\art_gallery\\article.html"
@@ -234,6 +247,7 @@
             ]
         },
         {
+            "thumb": "markers\\cathedral\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\cathedral\\article.html"
@@ -250,6 +264,7 @@
             ]
         },
         {
+            "thumb": "markers\\smithfield_market\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\smithfield_market\\article.html"
@@ -265,6 +280,7 @@
             ]
         },
         {
+            "thumb": "markers\\royal_exchange\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\royal_exchange\\article.html"
@@ -281,6 +297,7 @@
             ]
         },
         {
+            "thumb": "markers\\st_alberts_square\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\st_alberts_square\\article.html"
@@ -297,6 +314,7 @@
             ]
         },
         {
+            "thumb": "markers\\midland_hotel\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\midland_hotel\\article.html"
@@ -313,6 +331,7 @@
             ]
         },
         {
+            "thumb": "markers\\cross_street\\thumb.jpg",
             "article": {
                 "type": "html",
                 "src": "markers\\cross_street\\article.html"
