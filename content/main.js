@@ -788,11 +788,4 @@ function init() {
         }
         markers.mancSource.refresh();
     });
-
-    let mediaOptions = $('#mediaOptions');
-    $('#mediapanel').mouseenter(function(event){
-        mediaOptions.fadeIn(200);
-    }).mouseleave(function(event){
-        mediaOptions.fadeOut(200);
-    });
 }
